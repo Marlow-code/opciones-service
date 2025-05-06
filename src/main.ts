@@ -35,8 +35,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 5016);
-  console.log('gRPC microservice is listening on port', process.env.PORT ?? 5016);
+  await app.listen(process.env.PORT ?? 3016);
+  console.log('REST API is listening on port', process.env.PORT ?? 3016);
 
 }
 bootstrap().catch(console.error);
