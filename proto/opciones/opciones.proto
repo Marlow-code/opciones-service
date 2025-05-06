@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package opciones;
+
+service OpcionesService {
+    rpc CreateOpciones (CreateOpcionesRequest) returns (Opciones);
+    rpc GetOpciones (GetOpcionesRequest) returns (Opciones);
+    rpc ListOpciones (ListOpcionesRequest) returns (ListOpcionesResponse);
+    rpc UpdateOpciones (UpdateOpcionesRequest) returns (Opciones);
+    rpc DeleteOpciones (DeleteOpcionesRequest) returns (Opciones);
+}
+
+message Opciones {
+    int32 opcion_id = 1;
+    string nombre = 2;
+    string descripcion = 3;
+    string icono = 4;
+    bool es_activo = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}   
+
+message CreateOpcionesRequest {
+    string nombre = 1;
+    string descripcion = 2;
+    string icono = 3;
+    bool es_activo = 4;
+}
+
+message GetOpcionesRequest {
+    int32 opcion_id = 1;
+}
+
+message ListOpcionesRequest {
+    int32 page = 1;
+    int32 limit = 2;
+    string search = 3;
+}
+
+message ListOpcionesResponse {
+    repeated Opciones opciones = 1;
+    int32 total = 2;
+    int32 page = 3;
+    int32 limit = 4;
+}
+
+message UpdateOpcionesRequest {
+    int32 opcion_id = 1;
+    string nombre = 2;
+    string descripcion = 3;
+    string icono = 4;
+    bool es_activo = 5;
+}
+
+message DeleteOpcionesRequest {
+    int32 opcion_id = 1;
+}
+
+message DeleteOpcionesResponse {
+    bool success = 1;
+}
+
