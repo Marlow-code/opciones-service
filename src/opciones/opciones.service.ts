@@ -69,7 +69,8 @@ export class OpcionesService {
 
     async remove(opcionId: number) {
         try {
-            return await this.prisma.opciones.delete({ where: { opcion_id: opcionId } });
+            await this.prisma.opciones.delete({ where: { opcion_id: opcionId } });
+            return { success: true };
         } catch (error) {
             throw new NotFoundException(`Opcion con id ${opcionId} no encontrada`);
         }

@@ -2,26 +2,35 @@ import { Opciones } from "../interfaces/opciones.interface";
 
 export class OpcionesTransformer {
     static toGrpc(data: any): Opciones {
+        const opcionId = data.opcion_id ?? data.opcionId ?? 0;
+        const esActivo = data.es_activo ?? data.esActivo ?? false;
+        const createdAtISO = data.created_at ?
+            (data.created_at instanceof Date ? data.created_at.toISOString() : new Date(data.created_at).toISOString())
+            : new Date().toISOString();
+        const updatedAtISO = data.updated_at ?
+            (data.updated_at instanceof Date ? data.updated_at.toISOString() : new Date(data.updated_at).toISOString())
+            : new Date().toISOString();
         return {
-            opcion_id: data.opcion_id ?? 0,
+            opcionId,
             nombre: data.nombre ?? "",
             descripcion: data.descripcion ?? "",
             icono: data.icono ?? "",
-            es_activo: data.es_activo ?? false,
-            created_at: data.created_at ?? new Date().toISOString(),
-            updated_at: data.updated_at ?? new Date().toISOString(),
+            esActivo,
+            createdAt: createdAtISO,
+            updatedAt: updatedAtISO,
         };
     }
 
     static fromGrpc(data: any): any {
         return {
-            opcion_id: data.opcion_id,
+            ...data,
+            opcionId: data.opcionId,
             nombre: data.nombre,
             descripcion: data.descripcion,
             icono: data.icono,
-            es_activo: data.es_activo,
-            created_at: data.created_at,
-            updated_at: data.updated_at,
+            esActivo: data.esActivo,
+            createdAt: data.createdAt || null,
+            updatedAt: data.updatedAt || null,
         };
     }
 }

@@ -1,11 +1,11 @@
 export interface Opciones {
-    opcion_id: number;
+    opcionId: number;
     nombre: string;
     descripcion: string;
     icono: string;
-    es_activo: boolean;
-    created_at: string;
-    updated_at: string;
+    esActivo: boolean;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface CreateOpcionesRequest {
@@ -17,12 +17,6 @@ export interface CreateOpcionesRequest {
 
 export interface GetOpcionesRequest {
     opcionId: number;
-    nombre: string;
-    descripcion: string;
-    icono: string;
-    esActivo: boolean;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 export interface ListOpcionesRequest {
@@ -32,13 +26,8 @@ export interface ListOpcionesRequest {
 }
 
 export interface ListOpcionesResponse {
-    data: Opciones[];
-    pagination: {
-        page: number;
-        limit: number;
-        total: number;
-        total_pages: number;
-    };
+    opciones: Opciones[];
+    total: number;
 }
 
 export interface UpdateOpcionesRequest {
