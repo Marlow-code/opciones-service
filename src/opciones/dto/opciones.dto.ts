@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class OpcionesDto {
     @ApiProperty()
-    opcion_id: number;
+    opcionId: number;
 
     @ApiProperty()
     nombre: string;
@@ -14,11 +14,11 @@ export class OpcionesDto {
     icono: string;
 
     @ApiProperty()
-    es_activo: boolean;
+    esActivo: boolean;
 
     @ApiProperty()
-    created_at: Date;
+    createdAt: string;
 
     @ApiProperty()
-    updated_at: Date;
+    updatedAt: string;
 }

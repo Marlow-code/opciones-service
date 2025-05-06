@@ -56,14 +56,14 @@ async function main() {
             );
         });
         const list: any = listResult;
-        console.log('Opciones listadas exitosamente:', list);
+        console.log('Opciones listadas exitosamente:', JSON.stringify(list, null, 2));
  
  
         console.log('Obteniendo opcion...');
         const getResult = await new Promise((resolve, reject) => {
-            client.GetOpcion(
+            client.GetOpciones(
                 { opcionId: create.opcion_id },
-                (err, response: any) => {
+                (err, response) => {
                     if (err) reject(err);
                     resolve(response);
                 }
@@ -74,15 +74,15 @@ async function main() {
  
         console.log('Actualizando opcion...');
         const updateResult = await new Promise((resolve, reject) => {
-            client.UpdateOpcion(
+            client.UpdateOpciones(
                 {
                     opcionId: create.opcion_id,
-                    nombre: 'Opcion 1',
-                    descripcion: 'Opcion 1',
-                    icono: 'Opcion 1',
-                    esActivo: true,
+                    nombre: 'Opcion 11',
+                    descripcion: 'Opcion 11',
+                    icono: 'Opcion 11',
+                    esActivo: false,
                 },
-                (err, response: any) => {
+                (err, response) => {
                     if (err) reject(err);
                     resolve(response);
                 }
@@ -93,9 +93,9 @@ async function main() {
  
         console.log('Eliminando opcion...');
         const deleteResult = await new Promise((resolve, reject) => {
-            client.DeleteOpcion(
+            client.DeleteOpciones(
                 { opcionId: create.opcion_id },
-                (err: any, response: any) => {
+                (err, response) => {
                     if (err) reject(err);
                     resolve(response);
                 }

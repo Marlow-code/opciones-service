@@ -22,27 +22,28 @@ export class OpcionesGrpcService {
     async create(data: CreateOpcionesRequest): Promise<Opciones> {
         const result = await this.opcionesService.create(data);
         const grpcobject = OpcionesTransformer.toGrpc(result);
+
         return grpcobject;
     }
     
 @GrpcMethod('OpcionesService', 'GetOpciones')
 async findOne(data: GetOpcionesRequest): Promise<Opciones> {
-    const result = await this.opcionesService.findOne(data.opcionId);
-    const grpcobject = OpcionesTransformer.toGrpc(result);
-    return grpcobject;
+    const opcionId = data.opcionId ?? data.opcionId;
+    console.log('[gRPC][GetOpciones] Request:', data);
+    const result = await this.opcionesService.findOne(opcionId);
+    const grpcobj = OpcionesTransformer.toGrpc(result);
+    console.log('[gRPC][GetOpciones] Response:', grpcobj);
+    return grpcobj;
 }
 
 @GrpcMethod('OpcionesService', 'ListOpciones')
-async list(data: ListOpcionesRequest): Promise<ListOpcionesResponse> {
-    const result = await this.opcionesService.findAll(data);
+async findAll(data: ListOpcionesRequest): Promise<ListOpcionesResponse> {
+    const opciones = await this.opcionesService.findAll();
+    const grpcArray = opciones.data.map(a => OpcionesTransformer.toGrpc(a));
+
     return {
-        data: result.data.map(OpcionesTransformer.toGrpc),
-        pagination: {
-            page: result.pagination.page,
-            limit: result.pagination.limit,
-            total: result.pagination.total,
-            total_pages: result.pagination.total_pages
-        }
+        opciones: grpcArray,
+        total: opciones.pagination.total,
     };
 }
 
@@ -51,6 +52,7 @@ async update(data: UpdateOpcionesRequest): Promise<Opciones> {
     const {opcionId, ...updateData} = data;
     const result = await this.opcionesService.update(opcionId, updateData);
     const grpcObj = OpcionesTransformer.toGrpc(result);
+
     return grpcObj;
 }
 
